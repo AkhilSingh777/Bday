@@ -1,0 +1,480 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday 💖</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffd6e7, #e6d5ff, #fce1ef);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.65);
+            padding: 45px 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px rgba(170, 100, 150, 0.15);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(42px, 8vw, 65px);
+            color: #d94f91;
+            margin-bottom: 15px;
+        }
+
+        .name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            color: #9b5bb5;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            color: #76566e;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .date {
+            margin-top: 25px;
+            color: #a45c91;
+            font-size: 14px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        button {
+            border: none;
+            padding: 13px 23px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #ec83b5, #b78be8);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(190, 110, 170, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(190, 110, 170, 0.3);
+        }
+
+        .balloon {
+            position: fixed;
+            bottom: -120px;
+            width: 45px;
+            height: 58px;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: floatUp linear infinite;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .balloon::after {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 45px;
+            background: rgba(120, 90, 120, 0.4);
+            top: 58px;
+            left: 50%;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-120vh);
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(60, 30, 60, 0.45);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .modal-content {
+            background: #fff8fc;
+            width: 100%;
+            max-width: 480px;
+            padding: 35px 25px;
+            border-radius: 22px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            animation: popIn 0.35s ease;
+            position: relative;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 36px;
+            color: #d94f91;
+            margin-bottom: 20px;
+        }
+
+        .slide-text {
+            color: #76566e;
+            font-size: 15px;
+            line-height: 1.9;
+            min-height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 17px;
+            background: none;
+            color: #b66b9c;
+            font-size: 25px;
+            padding: 0 5px;
+            box-shadow: none;
+        }
+
+        .close-btn:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .envelope {
+            font-size: 75px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .envelope:hover {
+            transform: scale(1.1);
+        }
+
+        .letter {
+            display: none;
+            white-space: pre-line;
+            color: #76566e;
+            font-size: 14px;
+            line-height: 2;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .signature {
+            display: none;
+            font-family: 'Dancing Script', cursive;
+            font-size: 25px;
+            color: #d94f91;
+            margin-top: 20px;
+        }
+
+        .card-image {
+            width: 100%;
+            max-width: 380px;
+            max-height: 65vh;
+            object-fit: contain;
+            border-radius: 15px;
+            margin-top: 10px;
+        }
+
+        .music-note {
+            font-size: 12px;
+            color: #a879a0;
+            margin-top: 18px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 35px 20px;
+            }
+
+            .name {
+                font-size: 27px;
+            }
+
+            .message {
+                font-size: 14px;
+            }
+
+            .modal-content {
+                padding: 35px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="soft-melody.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Main Birthday Page -->
+    <div class="container">
+        <h1>Happy Birthday 💕</h1>
+
+        <div class="name">To Someone Truly Special 🌸</div>
+
+        <p class="message">
+            A day as special as you deserves something a little special too ✨
+        </p>
+
+        <div class="buttons">
+            <button onclick="startSurprise()">Open Your Surprise 🎁</button>
+            <button onclick="openCard()">View Card 💌</button>
+        </div>
+
+        <p class="date">3rd November 🎂</p>
+        <p class="music-note">A little melody just for you ♡</p>
+    </div>
+
+    <!-- Surprise Modal -->
+    <div class="modal" id="giftModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeGift()">×</button>
+
+            <h2 id="slideTitle">A Little Something for You 💗</h2>
+
+            <p class="slide-text" id="slideText">
+                I honestly never expected a random online friendship to become this special. I'm really glad we got to know each other.
+            </p>
+
+            <div class="modal-buttons">
+                <button id="nextBtn" onclick="nextSlide()">Next 💕</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Letter Modal -->
+    <div class="modal" id="letterModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeLetter()">×</button>
+
+            <h2>A Little Letter for You 💌</h2>
+
+            <div class="envelope" id="envelope" onclick="openLetter()">💌</div>
+            <p id="envelopeHint" style="color:#a879a0; font-size:13px;">
+                Tap the envelope to open it ♡
+            </p>
+
+            <div class="letter" id="letterText"></div>
+            <div class="signature" id="signature">
+                — From someone who truly cares 💫
+            </div>
+        </div>
+    </div>
+
+    <!-- Birthday Card Modal -->
+    <div class="modal" id="cardModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeCard()">×</button>
+
+            <h2>Your Birthday Card 💖</h2>
+
+            <img src="birthday-card.png" alt="Birthday Card" class="card-image">
+        </div>
+    </div>
+
+    <script>
+        // Background Music
+        const music = document.getElementById("bgMusic");
+
+        music.volume = 0.25;
+
+        function startMusic() {
+            music.play().catch(error => {
+                console.log("Music is waiting for user interaction.");
+            });
+        }
+
+        // Start music after the visitor's first interaction
+        document.addEventListener("click", startMusic, { once: true });
+        document.addEventListener("keydown", startMusic, { once: true });
+
+        // Balloon Animation
+        const balloonColors = [
+            "#ff9ecb",
+            "#c9a4ff",
+            "#ffb6d9",
+            "#b8a1ed",
+            "#ffd1e8"
+        ];
+
+        function createBalloon() {
+            const balloon = document.createElement("div");
+            balloon.classList.add("balloon");
+
+            balloon.style.left = Math.random() * 100 + "vw";
+            balloon.style.background =
+                balloonColors[Math.floor(Math.random() * balloonColors.length)];
+
+            balloon.style.animationDuration = (8 + Math.random() * 7) + "s";
+
+            document.body.appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, 16000);
+        }
+
+        setInterval(createBalloon, 900);
+
+        // Surprise Slides
+        const slides = [
+            "I honestly never expected a random online friendship to become this special. I'm really glad we got to know each other.",
+
+            "Our random conversations, stupid jokes and endless teasing are something I genuinely enjoy. You make even an ordinary day a little better.",
+
+            "Even though we've never met in person, you've become someone I genuinely care about. And I'm really happy to have you around, Sophie. ❤️"
+        ];
+
+        let currentSlide = 0;
+
+        function startSurprise() {
+            currentSlide = 0;
+
+            document.getElementById("slideTitle").innerText =
+                "A Little Something for You 💗";
+
+            document.getElementById("slideText").innerText =
+                slides[currentSlide];
+
+            document.getElementById("nextBtn").innerText = "Next 💕";
+
+            document.getElementById("giftModal").style.display = "flex";
+        }
+
+        function nextSlide() {
+            currentSlide++;
+
+            if (currentSlide < slides.length) {
+                document.getElementById("slideText").innerText =
+                    slides[currentSlide];
+
+                if (currentSlide === slides.length - 1) {
+                    document.getElementById("nextBtn").innerText =
+                        "One Last Thing 💌";
+                }
+            } else {
+                document.getElementById("giftModal").style.display = "none";
+                document.getElementById("letterModal").style.display = "flex";
+            }
+        }
+
+        function closeGift() {
+            document.getElementById("giftModal").style.display = "none";
+        }
+
+        // Final Letter
+        const finalMessage = `Hey Sophie,
+
+I'm really glad we became friends.
+I genuinely enjoy talking to you, and I'm happy to have you in my life.
+You mean more to me than I probably say. ❤️
+
+So today, I just want to celebrate YOU.
+Happy Birthday! 🎉💖
+
+Thank you for being amazing.`;
+
+        function openLetter() {
+            document.getElementById("envelope").style.display = "none";
+            document.getElementById("envelopeHint").style.display = "none";
+
+            const letter = document.getElementById("letterText");
+            const signature = document.getElementById("signature");
+
+            letter.style.display = "block";
+            signature.style.display = "block";
+            letter.innerText = finalMessage;
+        }
+
+        function closeLetter() {
+            document.getElementById("letterModal").style.display = "none";
+
+            document.getElementById("envelope").style.display = "block";
+            document.getElementById("envelopeHint").style.display = "block";
+            document.getElementById("letterText").style.display = "none";
+            document.getElementById("signature").style.display = "none";
+        }
+
+        // Birthday Card
+        function openCard() {
+            document.getElementById("cardModal").style.display = "flex";
+        }
+
+        function closeCard() {
+            document.getElementById("cardModal").style.display = "none";
+        }
+
+        // Close popup when clicking outside its content
+        document.querySelectorAll(".modal").forEach(modal => {
+            modal.addEventListener("click", function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
